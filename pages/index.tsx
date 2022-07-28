@@ -60,45 +60,36 @@ const Home: NextPage = () => {
     setShownPost(shownPost);
   }, [selectedPost, posts]);
 
-  useEffect(() => {
-    fetchPosts(streamIds[showPostCategory])
-      .then((res) => {
-        setPosts(res);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  }, [showPostCategory]);
-
-  useEffect(() => {
-    if (shownPost) {
-      fetchComments(shownPost.stream_id)
-        .then((res) => {
-          if (res.length > 1) {
-            setShownPostComments(res);
-          }
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    }
-  }, [shownPost]);
-
+  const [isFetchingPosts, setIsFetchingPosts] = useState(false);
   async function fetchPosts(channelId: string) {
+    setIsFetchingPosts(true);
     let { data, error } = await orbis.getPosts({ context: channelId });
     if (error) {
-      throw new Error(`Failed to fetch posts for the channel - ${channelId}`);
+      alert(`Failed to fetch posts for the channel - ${channelId}`);
+      return;
     }
-    return data;
+    setIsFetchingPosts(false);
+    setPosts(data);
   }
 
   async function fetchComments(postId: string) {
     let { data, error } = await orbis.getPosts({ master: postId });
     if (error) {
-      throw new Error(`Failed to fetch comments for the channel - ${postId}`);
+      alert(`Failed to fetch comments for the post - ${postId}`);
+      return;
     }
-    return data;
+    setShownPostComments(data);
   }
+
+  useEffect(() => {
+    fetchPosts(streamIds[showPostCategory]);
+  }, [showPostCategory]);
+
+  useEffect(() => {
+    if (shownPost) {
+      fetchComments(shownPost.stream_id);
+    }
+  }, [shownPost]);
 
   const [createPostLoading, setCreatePostLoading] = useState(false);
   async function handleCreatePost(
@@ -122,6 +113,7 @@ const Home: NextPage = () => {
     }
 
     setCreatePostLoading(false);
+    closeModal();
   }
 
   const closeModal = () => {
@@ -159,7 +151,10 @@ const Home: NextPage = () => {
       {showModal && (
         <Modal hideModal={closeModal}>
           {!showReplyModal && (
-            <CreatePost onPostSubmission={handleCreatePost} />
+            <CreatePost
+              isSubmitting={createPostLoading}
+              onPostSubmission={handleCreatePost}
+            />
           )}
           {showReplyModal && (
             <ReplyPost
@@ -196,6 +191,7 @@ const Home: NextPage = () => {
               setShownPostComments(null);
             }}
             shownPostComments={shownPostComments}
+            isLoading={isFetchingPosts}
           />
         </div>
       </main>

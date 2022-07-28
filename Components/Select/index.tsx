@@ -7,6 +7,7 @@ interface SelectProps {
   fullWidth?: boolean;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   value: string;
+  disabled?: boolean;
 }
 
 const Select = ({
@@ -15,12 +16,14 @@ const Select = ({
   fullWidth = false,
   onChange,
   value,
+  disabled,
 }: SelectProps) => {
   return (
     <select
       className={fullWidth ? styles.inputselectfull : styles.inputselect}
       onChange={onChange}
       value={value}
+      disabled={disabled}
     >
       <option className={styles.hiddenoption} selected disabled value="">
         {defaultText}

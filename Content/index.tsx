@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import Control from "../Components/Control";
 import styles from "./style.module.css";
 import { ReplyIcon, GobackIcon } from "../Components/Icons";
+import Loader from "../Components/Loader";
 
 interface ContentProps {
   showModal: () => void;
@@ -13,6 +14,7 @@ interface ContentProps {
   onReplyClick: () => void;
   onGoingBack: () => void;
   shownPostComments: { [key: string]: any }[] | null;
+  isLoading: boolean;
 }
 
 const Content = ({
@@ -25,6 +27,7 @@ const Content = ({
   onReplyClick,
   onGoingBack,
   shownPostComments,
+  isLoading,
 }: ContentProps) => {
   const postBlocks = posts?.map((post) => {
     let body = post.content.body;
@@ -63,7 +66,12 @@ const Content = ({
             onCategorySelect={onCategorySelect}
             categoryVal={categoryVal}
           />
-          <>{postBlocks}</>
+          {!isLoading && <>{postBlocks}</>}
+          {isLoading && (
+            <div className={styles.loaderwrapper}>
+              <Loader bigloader={true} />
+            </div>
+          )}
         </>
       )}
       {shownPost && (

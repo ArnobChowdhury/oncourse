@@ -11,9 +11,10 @@ interface CreatePostProps {
     selectedCategory: SelectedCategoryType,
     postBody: string
   ) => void;
+  isSubmitting: boolean;
 }
 
-const CreatePost = ({ onPostSubmission }: CreatePostProps) => {
+const CreatePost = ({ onPostSubmission, isSubmitting }: CreatePostProps) => {
   const [postHeader, setPostHeader] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<
     SelectedCategoryType | ""
@@ -39,6 +40,7 @@ const CreatePost = ({ onPostSubmission }: CreatePostProps) => {
         className={styles.inputheading}
         value={postHeader}
         onChange={(event) => setPostHeader(event.currentTarget.value)}
+        disabled={isSubmitting}
       />
       <Select
         defaultText="Choose a category"
@@ -52,13 +54,19 @@ const CreatePost = ({ onPostSubmission }: CreatePostProps) => {
         onChange={(e) => {
           setSelectedCategory(e.currentTarget.value as SelectedCategoryType);
         }}
+        disabled={isSubmitting}
       />
       <textarea
         className={styles.inputbody}
         value={postBody}
         onChange={(e) => setPostBody(e.currentTarget.value)}
+        disabled={isSubmitting}
       />
-      <Button text="Create post" onClick={handlePostSubmission} />
+      <Button
+        loading={isSubmitting}
+        text="Create post"
+        onClick={handlePostSubmission}
+      />
     </div>
   );
 };
