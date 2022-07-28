@@ -1,0 +1,13 @@
+.hiddenoption {
+    display: none;
+}
+
+.inputselectfull {
+    padding: 16px;
+    width: 100%;
+}
+
+.inputselect {
+    padding: 12px;
+    /* width: 100%; */
+}

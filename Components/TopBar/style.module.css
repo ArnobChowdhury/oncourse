@@ -1,0 +1,13 @@
+.button {
+    padding: 12px 24px;
+    border: none;
+    background-color: black; 
+    color: white;
+    border-radius: 2px;
+}
+
+.topbar {
+    padding: 32px 16px;
+    display: flex;
+    justify-content: flex-end;
+}

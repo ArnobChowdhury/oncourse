@@ -1,0 +1,43 @@
+.createpost {
+    padding: 32px;
+    background: white;
+    width: 800px;
+    max-width: calc(100% - 64px);
+}
+
+.createpost > *:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.inputheading {
+    padding: 16px;
+    width: 100%;
+    outline: none;
+}
+.inputheading:focus {
+    border: 2px solid black;
+}
+
+.hiddenoption {
+    display: none;
+}
+
+.inputselect {
+    padding: 16px;
+    width: 100%;
+}
+
+.inputbody {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 200px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    padding: 16px;
+}
+
+.inputbody:focus {
+    border: 2px solid black;
+}
