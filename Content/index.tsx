@@ -103,7 +103,11 @@ const Content = ({
                 key={createKey(index, comment.content.body)}
               >
                 <Identity
-                  username={comment.creator_details.profile?.username}
+                  username={
+                    comment.creator_details?.profile?.username
+                      ? comment.creator_details?.profile?.username
+                      : shortendDid(comment.creator)
+                  }
                 />
                 <div className={styles.commentbody}>{comment.content.body}</div>
               </div>
