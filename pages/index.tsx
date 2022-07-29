@@ -23,9 +23,7 @@ const Home: NextPage = () => {
   async function handleSignin() {
     let res = await orbis.connect();
     if (res.status == 200) {
-      const did = res.did;
-      localStorage.setItem("did", did);
-      setUser(did);
+      setUser(res);
     } else {
       console.error("Error connecting to Ceramic: ", res);
       alert("Error connecting to Ceramic.");
