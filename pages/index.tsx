@@ -111,6 +111,7 @@ const Home: NextPage = () => {
       alert("Error sharing post.");
     }
 
+    fetchPosts(streamIds[showPostCategory]);
     setCreatePostLoading(false);
     closeModal();
   }
@@ -136,6 +137,12 @@ const Home: NextPage = () => {
       alert("Error sharing post.");
     }
 
+    console.log("shownPost", "fetching");
+    if (shownPost) {
+      setTimeout(() => {
+        fetchComments(shownPost.stream_id);
+      }, 2000);
+    }
     setCreatePostLoading(false);
     closeModal();
   };
@@ -167,7 +174,8 @@ const Home: NextPage = () => {
       )}
       <TopBar onClick={handleSignin} user={user} />
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Oncourse</h1>
+        <h1 className={styles.title}>Oncourse</h1>
+        <h3 className={styles.subheader}>A forum for everything programming</h3>
         <div className={styles.box}>
           <Content
             showModal={() => {

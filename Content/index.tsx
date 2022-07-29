@@ -4,6 +4,7 @@ import styles from "./style.module.css";
 import { ReplyIcon, GobackIcon } from "../Components/Icons";
 import Loader from "../Components/Loader";
 import Identity from "../Components/Identity";
+import { shortendDid } from "../utils";
 
 interface ContentProps {
   showModal: () => void;
@@ -83,7 +84,13 @@ const Content = ({
               <h2>{shownPost.content.header} </h2>
               <span className={styles.badge}>{categoryVal}</span>
             </div>
-            <Identity username={shownPost.creator_details.profile.username} />
+            <Identity
+              username={
+                shownPost.creator_details?.profile?.username
+                  ? shownPost.creator_details?.profile?.username
+                  : shortendDid(shownPost?.creator)
+              }
+            />
             <div>{handleNewLine(shownPost.content.body)}</div>
             <div className={styles.footer}>
               <ReplyIcon onClick={onReplyClick} />
@@ -95,7 +102,9 @@ const Content = ({
                 className={styles.comment}
                 key={createKey(index, comment.content.body)}
               >
-                <Identity username={comment.creator_details.profile.username} />
+                <Identity
+                  username={comment.creator_details.profile?.username}
+                />
                 <div className={styles.commentbody}>{comment.content.body}</div>
               </div>
             ))}
