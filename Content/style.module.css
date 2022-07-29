@@ -50,6 +50,10 @@
     padding: 32px;
 }
 
+.commentbody {
+    margin-top: 16px;
+}
+
 .loaderwrapper {
     display: flex;
     justify-content: center;

@@ -5,7 +5,7 @@ const LINUX_CHANNEL_ID =
 const PYTHON_CHANNEL_ID =
   "kjzl6cwe1jw149zsrxxdray4l0dv8jzz9j0sii11rkpyegxdqcbzr5vgwdfvmo0";
 const JAVASCRIPT_CHANNEL_ID =
-  "kjzl6cwe1jw145c0yelbj0joqvegtc1gx5k3nycnmksnzf5l0if9zv0udorekhm";
+  "kjzl6cwe1jw1477828plvkk0bgw019k1vhmclw2tjijm94qqi5921wqxt2mjg7w";
 
 export const streamIds = {
   group: GROUP_ID,
